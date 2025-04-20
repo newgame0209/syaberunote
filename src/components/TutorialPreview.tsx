@@ -112,27 +112,27 @@ const TutorialPreview = () => {
   // ウェルカムポップアップを表示
   const WelcomePopup = () => (
     <motion.div 
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg border border-slate-200 p-4 w-[85%] max-w-none md:w-[65%] md:max-w-xs z-20"
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg border border-slate-200 p-3 md:p-4 w-[90%] sm:w-[85%] md:w-[65%] max-w-none md:max-w-xs z-20"
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      style={{ maxHeight: '80%', overflow: 'auto' }}
+      style={{ maxHeight: '70%', overflow: 'auto' }}
     >
-      <div className="text-center mb-3">
-        <div className="inline-block bg-primary/10 p-2 rounded-full mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <div className="text-center mb-2 md:mb-3">
+        <div className="inline-block bg-primary/10 p-1.5 md:p-2 rounded-full mb-1.5 md:mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
           </svg>
         </div>
-        <h3 className="text-lg font-semibold mb-1">しゃべるノートへようこそ</h3>
-        <p className="text-slate-600 text-xs mb-3">
+        <h3 className="text-base md:text-lg font-semibold mb-1">しゃべるノートへようこそ</h3>
+        <p className="text-xs md:text-sm text-slate-600 mb-2 md:mb-3">
           基本機能をここで体験いただけます。<br />
           操作はシンプルで、すぐに効果を体感できます。
         </p>
       </div>
       <button 
-        className="w-full bg-primary text-white font-medium py-1.5 px-3 rounded-lg flex items-center justify-center text-sm"
+        className="w-full bg-primary text-white font-medium py-1.5 px-3 rounded-lg flex items-center justify-center text-xs md:text-sm"
         onClick={() => setShowWelcome(false)}
       >
         はじめる
@@ -141,11 +141,11 @@ const TutorialPreview = () => {
   );
 
   return (
-    <section id="tutorial-preview" className="py-24 px-6 md:px-12 bg-gradient-to-br from-primary/20 via-secondary/20 to-white">
+    <section id="tutorial-preview" className="py-12 md:py-24 px-4 md:px-12 bg-gradient-to-br from-primary/20 via-secondary/20 to-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -154,7 +154,7 @@ const TutorialPreview = () => {
             <span className="text-primary">しゃべるノート</span>の機能を実際に体験
           </motion.h2>
           <motion.p 
-            className="text-lg text-slate-600 max-w-2xl mx-auto"
+            className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -168,7 +168,7 @@ const TutorialPreview = () => {
           {/* 背景のSVGアニメーション */}
           <svg 
             ref={svgRef}
-            className="absolute inset-0 w-full h-full z-0"
+            className="absolute inset-0 w-full h-full z-0 hidden md:block"
             viewBox="0 0 2854 1239" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
@@ -185,27 +185,27 @@ const TutorialPreview = () => {
           <div className="relative z-10 mx-auto max-w-4xl">
             {/* ベースとなるアプリ画面 */}
             <motion.div
-              className="bg-white rounded-xl overflow-hidden shadow-xl border border-slate-200 relative"
+              className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-lg border border-slate-200 relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
               {/* ブラウザのヘッダー部分 */}
-              <div className="bg-slate-100 p-2 flex items-center border-b border-slate-200">
-                <div className="flex space-x-2 mr-4">
-                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+              <div className="bg-slate-100 p-1.5 md:p-2 flex items-center border-b border-slate-200">
+                <div className="flex space-x-1.5 md:space-x-2 mr-3 md:mr-4">
+                  <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-400"></div>
+                  <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-400"></div>
+                  <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-400"></div>
                 </div>
-                <div className="flex-1 bg-white rounded-full h-6 mx-16"></div>
+                <div className="flex-1 bg-white rounded-full h-4 md:h-6 mx-8 md:mx-16"></div>
               </div>
               
               {/* アプリのインターフェース */}
-              <div className="p-4 bg-white">
-                <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+              <div className="p-3 md:p-4 bg-white">
+                <div className="grid grid-cols-1 gap-3 md:gap-4">
                   {/* メインエリア - ステップに応じて内容が変わる */}
-                  <div className="bg-slate-50 rounded-lg p-3 h-[450px] md:h-[500px] relative flex items-center justify-center">
+                  <div className="bg-slate-50 rounded-lg p-2 md:p-3 h-[350px] sm:h-[400px] md:h-[500px] relative flex items-center justify-center">
                     {/* 実際のスクリーンショットまたは動画を表示 */}
                     <AnimatePresence mode="wait">
                       {showWelcome ? (
@@ -215,7 +215,7 @@ const TutorialPreview = () => {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="w-full h-full flex items-center justify-center"
+                          className="w-full h-full flex items-center justify-center relative"
                         >
                           <img
                             src="/images/tutorial1.png"
@@ -275,20 +275,15 @@ const TutorialPreview = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* ウェルカムポップアップをアプリ画面の上にオーバーレイ表示 */}
-              <AnimatePresence>
-                {/* ウェルカムポップアップは上のコンテンツ内に移動したため、ここでは表示しない */}
-              </AnimatePresence>
             </motion.div>
             
             {/* ステップインジケーター */}
             {!showWelcome && (
-              <div className="flex justify-center mt-8 space-x-2">
+              <div className="flex justify-center mt-4 md:mt-8 space-x-1.5 md:space-x-2">
                 {steps.map((_, index) => (
                   <div
                     key={index}
-                    className={`w-3 h-3 rounded-full ${step === index ? 'bg-primary' : 'bg-slate-300'} cursor-pointer transition-colors duration-200 hover:bg-primary/70`}
+                    className={`w-2 h-2 md:w-3 md:h-3 rounded-full ${step === index ? 'bg-primary' : 'bg-slate-300'} cursor-pointer transition-colors duration-200 hover:bg-primary/70`}
                     onClick={() => goToStep(index)}
                   />
                 ))}
@@ -299,19 +294,19 @@ const TutorialPreview = () => {
             {!showWelcome && (
               <motion.div
                 key={step}
-                className="text-center mt-4"
+                className="text-center mt-3 md:mt-4"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-lg font-semibold text-primary">{steps[step].title}</h3>
-                <p className="text-sm text-slate-600">{steps[step].description}</p>
+                <h3 className="text-base md:text-lg font-semibold text-primary">{steps[step].title}</h3>
+                <p className="text-xs md:text-sm text-slate-600">{steps[step].description}</p>
               </motion.div>
             )}
           </div>
           
           {/* 機能ハイライト */}
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
             {[
               {
                 title: "直感的な操作",
