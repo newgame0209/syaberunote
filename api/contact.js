@@ -1,18 +1,8 @@
 const nodemailer = require('nodemailer');
 
-// メール送信用のトランスポーター設定
-const transporter = nodemailer.createTransport({
-  host: 'mail1005.onamae.ne.jp', // お名前.comのSMTPサーバー
-  port: 465,
-  secure: true, // true for 465, false for other ports
-  auth: {
-    user: 'support@talknote.site', // メールアドレス
-    pass: process.env.EMAIL_PASSWORD // パスワード（環境変数から取得）
-  }
-});
-
+// サーバーレス関数のハンドラー
 module.exports = async (req, res) => {
-  // CORSヘッダーの設定
+  // CORSヘッダー設定
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -21,13 +11,13 @@ module.exports = async (req, res) => {
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   );
 
-  // OPTIONSリクエスト（プリフライトリクエスト）への対応
+  // プリフライトリクエストへの対応
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
 
-  // POSTリクエスト以外は受け付けない
+  // POSTリクエスト以外は拒否
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
@@ -38,8 +28,19 @@ module.exports = async (req, res) => {
     if (!name || !email || !message) {
       return res.status(400).json({ success: false, message: '必須項目が入力されていません' });
     }
+    
+    // Nodemailerのトランスポート設定
+    const transporter = nodemailer.createTransport({
+      host: 'mail1005.onamae.ne.jp',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'support@talknote.site',
+        pass: process.env.EMAIL_PASSWORD
+      }
+    });
 
-    // メール本文の作成
+    // メール送信オプション
     const mailOptions = {
       from: 'support@talknote.site',
       to: 'support@talknote.site',
@@ -56,12 +57,21 @@ ${message}
       replyTo: email
     };
 
-    // メール送信
-    await transporter.sendMail(mailOptions);
+    // メール送信実行
+    const info = await transporter.sendMail(mailOptions);
+    console.log('メール送信成功:', info.messageId);
     
-    res.status(200).json({ success: true, message: 'お問い合わせを受け付けました' });
+    return res.status(200).json({ 
+      success: true, 
+      message: 'お問い合わせを受け付けました',
+      messageId: info.messageId
+    });
   } catch (error) {
     console.error('メール送信エラー:', error);
-    res.status(500).json({ success: false, message: 'メール送信に失敗しました' });
+    return res.status(500).json({ 
+      success: false, 
+      message: 'メール送信に失敗しました', 
+      error: error.message 
+    });
   }
 };
