@@ -112,27 +112,27 @@ const TutorialPreview = () => {
   // ウェルカムポップアップを表示
   const WelcomePopup = () => (
     <motion.div 
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg border border-slate-200 p-3 md:p-4 w-[80%] sm:w-[70%] md:w-[60%] max-w-[250px] z-20"
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg border border-slate-200 p-2 md:p-3 w-[70%] sm:w-[60%] md:w-[50%] max-w-[200px] z-20"
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      style={{ maxHeight: '60%', overflow: 'auto' }}
+      style={{ maxHeight: '50%', overflow: 'auto' }}
     >
-      <div className="text-center mb-2 md:mb-3">
-        <div className="inline-block bg-primary/10 p-1.5 md:p-2 rounded-full mb-1.5 md:mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <div className="text-center mb-1 md:mb-2">
+        <div className="inline-block bg-primary/10 p-1 md:p-1.5 rounded-full mb-1 md:mb-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 md:h-4 md:w-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
           </svg>
         </div>
-        <h3 className="text-base md:text-lg font-semibold mb-1">しゃべるノートへようこそ</h3>
-        <p className="text-xs md:text-sm text-slate-600 mb-2 md:mb-3">
+        <h3 className="text-sm md:text-base font-semibold mb-0.5 md:mb-1">しゃべるノートへようこそ</h3>
+        <p className="text-[10px] md:text-xs text-slate-600 mb-1 md:mb-2">
           基本機能をここで体験いただけます。<br />
           操作はシンプルで、すぐに効果を体感できます。
         </p>
       </div>
       <button 
-        className="w-full bg-primary text-white font-medium py-1.5 px-3 rounded-lg flex items-center justify-center text-xs md:text-sm"
+        className="w-full bg-primary text-white font-medium py-1 px-2 rounded-lg flex items-center justify-center text-[10px] md:text-xs"
         onClick={() => setShowWelcome(false)}
       >
         はじめる

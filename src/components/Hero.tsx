@@ -4,11 +4,11 @@ import { ArrowRight, BookOpen, Brain, HeadphonesIcon } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="pt-6 pb-8 md:pt-28 md:pb-24 lg:pt-40 lg:pb-32 px-4 md:px-6 lg:px-12 hero-gradient relative overflow-hidden">
+    <section className="pt-16 sm:pt-20 md:pt-28 md:pb-24 lg:pt-40 lg:pb-32 px-4 md:px-6 lg:px-12 hero-gradient relative overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-4 md:gap-8 lg:gap-12 items-center">
         <div className="animate-fade-in-up">
-          <div className="inline-block bg-secondary px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium text-primary mb-3 md:mb-6">
-            学習障害・ディスレクシアに悩む方に寄り添う音声読み上げ対応ノートアプリ
+          <div className="inline-block bg-secondary px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] xs:text-xs sm:text-sm font-medium text-primary mb-2 md:mb-6 max-w-full overflow-hidden text-ellipsis">
+            <span className="line-clamp-2">学習障害・ディスレクシアに悩む方に寄り添う音声読み上げ対応ノートアプリ</span>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-6 leading-tight">
             文字の壁を超えて、<br />
