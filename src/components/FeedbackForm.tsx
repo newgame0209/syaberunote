@@ -59,8 +59,6 @@ const FeedbackForm = () => {
           >
             {/* FormSubmit用の設定フィールド */}
             <input type="hidden" name="_subject" value="【お問い合わせ】talknote.siteからのお問い合わせ" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_next" value="https://talknote.site/?thanks=true" />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
