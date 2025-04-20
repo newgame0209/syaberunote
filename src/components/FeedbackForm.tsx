@@ -23,60 +23,6 @@ const FeedbackForm = () => {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // 必須フィールドの検証
-    if (!formData.name || !formData.email || !formData.message) {
-      setSubmitStatus({
-        success: false,
-        message: '必須項目を入力してください'
-      });
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    try {
-      // FormSubmitサービスを使用してメール送信
-      const formElement = e.target as HTMLFormElement;
-      const formData = new FormData(formElement);
-      
-      const response = await fetch('https://formsubmit.co/support@talknote.site', {
-        method: 'POST',
-        body: formData,
-      });
-      
-      if (response.ok) {
-        setSubmitStatus({
-          success: true,
-          message: 'お問い合わせを受け付けました。担当者からの返信をお待ちください。'
-        });
-        // フォームをリセット
-        setFormData({
-          name: '',
-          email: '',
-          organization: '',
-          inquiry_type: '',
-          message: ''
-        });
-      } else {
-        setSubmitStatus({
-          success: false,
-          message: 'エラーが発生しました。しばらく経ってからもう一度お試しください。'
-        });
-      }
-    } catch (error) {
-      console.error('送信エラー:', error);
-      setSubmitStatus({
-        success: false,
-        message: '通信エラーが発生しました。インターネット接続を確認してください。'
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <section id="feedback" className="py-8 md:py-12 px-4 md:px-8 bg-slate-50">
       <div className="max-w-3xl mx-auto">
@@ -100,12 +46,22 @@ const FeedbackForm = () => {
             </div>
           )}
           
-          <form className="space-y-3 md:space-y-4" onSubmit={handleSubmit} action="https://formsubmit.co/support@talknote.site" method="POST">
+          <form 
+            className="space-y-3 md:space-y-4" 
+            action="https://formsubmit.co/support@talknote.site" 
+            method="POST"
+            onSubmit={() => {
+              setSubmitStatus({
+                success: true,
+                message: 'お問い合わせを受け付けました。担当者からの返信をお待ちください。'
+              });
+            }}
+          >
             {/* FormSubmit用の設定フィールド */}
-            <input type="hidden" name="_subject" value="お問い合わせフォームからの送信" />
+            <input type="hidden" name="_subject" value="【お問い合わせ】talknote.siteからのお問い合わせ" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value="https://talknote.site/?thankyou=true" />
+            <input type="hidden" name="_next" value="https://talknote.site/?thanks=true" />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
