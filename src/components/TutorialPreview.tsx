@@ -217,12 +217,16 @@ const TutorialPreview = () => {
                           transition={{ duration: 0.3 }}
                           className="w-full h-full flex items-center justify-center relative"
                         >
-                          <img
-                            src="/images/tutorial1.png"
-                            alt="ノート一覧"
-                            className="w-full h-full object-cover rounded-lg shadow-md opacity-50"
-                          />
-                          <WelcomePopup />
+                          <div className="relative w-full h-full flex items-center justify-center">
+                            <img
+                              src="/images/tutorial1.png"
+                              alt="ノート一覧"
+                              className="w-full h-full object-cover rounded-lg shadow-md opacity-50"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <WelcomePopup />
+                            </div>
+                          </div>
                         </motion.div>
                       ) : (
                         <motion.div
