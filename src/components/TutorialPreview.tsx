@@ -47,13 +47,6 @@ const TutorialPreview = () => {
     { 
       title: "文字を書く", 
       description: "キャンバスに文字や図形を自由に書き込めます",
-      buttonText: "次へ：書き終える",
-      image: "/images/tutorial-step3.png",
-      mobileImage: "/images/tutorial-step3-mobile.png"
-    },
-    { 
-      title: "ノートの完成", 
-      description: "書いた内容がノートとして保存されます",
       buttonText: "次へ：音声に変換",
       image: "/images/tutorial-step4.png",
       mobileImage: "/images/tutorial-step4-mobile.png"
@@ -98,19 +91,11 @@ const TutorialPreview = () => {
 
   // 動画の再生制御
   useEffect(() => {
-    if (step === 4 && videoRef.current) {
-      // 動画の自動再生を確実に行うため、mutedを追加して再生
-      videoRef.current.muted = true;
+    if (step === 3 && videoRef.current) {
+      // 動画の音声を有効にして再生
+      videoRef.current.muted = false;
+      videoRef.current.volume = 1.0;
       videoRef.current.play()
-        .then(() => {
-          // 自動再生成功後、ミュートを解除
-          setTimeout(() => {
-            if (videoRef.current) {
-              videoRef.current.muted = false;
-              console.log('動画の再生開始、ミュート解除');
-            }
-          }, 500);
-        })
         .catch(e => {
           console.log('動画の自動再生に失敗しました:', e);
           // 失敗時はユーザーに通知
@@ -181,8 +166,8 @@ const TutorialPreview = () => {
 
   // ステップに応じたコンテンツを表示
   const renderStepContent = () => {
-    // ステップ4（最後のステップ）は動画、その他は画像
-    if (step === 4) {
+    // ステップ3（最後のステップ）は動画、その他は画像
+    if (step === 3) {
       return (
         <div className="w-full h-full flex items-center justify-center">
           <video
@@ -191,9 +176,8 @@ const TutorialPreview = () => {
             className="max-w-full max-h-full object-contain rounded shadow"
             loop
             playsInline
-            controls={false}
+            controls
             autoPlay
-            muted
           />
         </div>
       );
