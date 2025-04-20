@@ -179,6 +179,37 @@ const TutorialPreview = () => {
     </motion.div>
   );
 
+  // ステップに応じたコンテンツを表示
+  const renderStepContent = () => {
+    // ステップ4（最後のステップ）は動画、その他は画像
+    if (step === 4) {
+      return (
+        <div className="w-full h-full flex items-center justify-center">
+          <video
+            ref={videoRef}
+            src={isMobile ? steps[step].mobileVideo : steps[step].video}
+            className="max-w-full max-h-full object-contain rounded shadow"
+            loop
+            playsInline
+            controls={false}
+            autoPlay
+            muted
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="w-full h-full flex items-center justify-center">
+          <img
+            src={isMobile ? steps[step].mobileImage : steps[step].image}
+            alt={steps[step].title}
+            className="max-w-full max-h-full object-contain rounded shadow"
+          />
+        </div>
+      );
+    }
+  };
+
   return (
     <section id="tutorial-preview" className="py-12 md:py-24 px-4 md:px-12 bg-gradient-to-br from-primary/20 via-secondary/20 to-white">
       <div className="max-w-7xl mx-auto">
@@ -245,7 +276,7 @@ const TutorialPreview = () => {
                 <div className="grid grid-cols-1 gap-3 md:gap-4">
                   {/* メインエリア - ステップに応じて内容が変わる */}
                   <div className="bg-slate-50 rounded-lg p-2 md:p-3 h-[350px] sm:h-[400px] md:h-[500px] relative flex items-center justify-center">
-                    {/* 実際のスクリーンショットまたは動画を表示 */}
+                    {/* コンテンツを表示 */}
                     <AnimatePresence mode="wait">
                       {showWelcome ? (
                         <motion.div
@@ -257,13 +288,31 @@ const TutorialPreview = () => {
                           className="w-full h-full flex items-center justify-center relative"
                         >
                           <div className="relative w-full h-full flex items-center justify-center">
-                            <img
-                              src={isMobile ? steps[0].mobileImage : steps[0].image}
-                              alt="ノート一覧"
-                              className="w-full h-full object-cover rounded-lg shadow-md opacity-50"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <WelcomePopup />
+                            <div className="w-full h-full p-4 flex items-center justify-center">
+                              <div className="w-full max-w-md">
+                                <h3 className="text-lg font-semibold mb-3 text-center">ノート一覧</h3>
+                                <div className="border border-slate-200 rounded-lg p-4 bg-white">
+                                  <div className="flex justify-between items-center mb-4">
+                                    <span className="text-sm font-medium">マイノート</span>
+                                    <span className="text-xs text-slate-500">すべて</span>
+                                  </div>
+                                  <div className="space-y-2">
+                                    <div className="p-2 border border-slate-100 rounded bg-slate-50 flex justify-between">
+                                      <span className="text-sm">マインドセット記録</span>
+                                      <span className="text-xs text-slate-500">2023/4/15</span>
+                                    </div>
+                                    <div className="p-2 border border-slate-100 rounded bg-slate-50 flex justify-between">
+                                      <span className="text-sm">会議で字が読めない</span>
+                                      <span className="text-xs text-slate-500">2023/5/3</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="absolute inset-0 bg-slate-100/60 flex items-center justify-center">
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <WelcomePopup />
+                              </div>
                             </div>
                           </div>
                         </motion.div>
@@ -277,25 +326,8 @@ const TutorialPreview = () => {
                           className="w-full h-full flex flex-col items-center justify-center"
                         >
                           <div className="relative w-full h-full flex items-center justify-center">
-                            {/* 画像または動画表示 */}
-                            {steps[step].video ? (
-                              <video
-                                ref={videoRef}
-                                src={isMobile ? (steps[step].mobileVideo || steps[step].video) : steps[step].video}
-                                className="w-full h-full object-cover rounded-lg shadow-md"
-                                controls
-                                loop
-                                muted
-                                autoPlay
-                                playsInline
-                              />
-                            ) : (
-                              <img
-                                src={isMobile ? steps[step].mobileImage : steps[step].image}
-                                alt={steps[step].title}
-                                className="w-full h-full object-cover rounded-lg shadow-md"
-                              />
-                            )}
+                            {/* ステップに応じたコンテンツを表示 */}
+                            {renderStepContent()}
                             
                             {/* 次のステップへのボタン */}
                             <motion.div
