@@ -38,7 +38,9 @@ const FeedbackForm = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/contact', {
+      // APIのURLを絶対パスに変更
+      const baseUrl = window.location.origin;
+      const response = await fetch(`${baseUrl}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,27 +48,24 @@ const FeedbackForm = () => {
         body: JSON.stringify(formData),
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
       
-      if (response.ok) {
-        setSubmitStatus({
-          success: true,
-          message: 'お問い合わせを受け付けました。担当者からの返信をお待ちください。'
-        });
-        // フォームをリセット
-        setFormData({
-          name: '',
-          email: '',
-          organization: '',
-          inquiry_type: '',
-          message: ''
-        });
-      } else {
-        setSubmitStatus({
-          success: false,
-          message: data.message || 'エラーが発生しました。しばらく経ってからもう一度お試しください。'
-        });
-      }
+      setSubmitStatus({
+        success: true,
+        message: 'お問い合わせを受け付けました。担当者からの返信をお待ちください。'
+      });
+      // フォームをリセット
+      setFormData({
+        name: '',
+        email: '',
+        organization: '',
+        inquiry_type: '',
+        message: ''
+      });
     } catch (error) {
       console.error('送信エラー:', error);
       setSubmitStatus({

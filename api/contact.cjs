@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-module.exports = async (req, res) => {
+module.exports = async function(req, res) {
   // CORSヘッダーの設定
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
