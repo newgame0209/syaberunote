@@ -11,12 +11,18 @@ const TutorialPreview = () => {
   // 画面サイズの検出
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const isMobileView = window.innerWidth < 768;
+      console.log('画面幅', window.innerWidth, 'isMobile:', isMobileView);
+      setIsMobile(isMobileView);
     };
     
+    // 初期実行
     checkMobile();
+    
+    // リサイズイベントリスナーを追加
     window.addEventListener('resize', checkMobile);
     
+    // クリーンアップ
     return () => {
       window.removeEventListener('resize', checkMobile);
     };
@@ -29,7 +35,7 @@ const TutorialPreview = () => {
       description: "作成したノートの一覧を確認できます",
       buttonText: "次へ：ノートを作成",
       image: "/images/tutorial1.png",
-      mobileImage: "/images/tutorial1-mobile.png"
+      mobileImage: "/images/tutorial1-mobile.png" 
     },
     { 
       title: "ノートの作成", 
@@ -252,7 +258,7 @@ const TutorialPreview = () => {
                         >
                           <div className="relative w-full h-full flex items-center justify-center">
                             <img
-                              src={isMobile ? (steps[0].mobileImage || steps[0].image) : steps[0].image}
+                              src={isMobile ? steps[0].mobileImage : steps[0].image}
                               alt="ノート一覧"
                               className="w-full h-full object-cover rounded-lg shadow-md opacity-50"
                             />
@@ -285,7 +291,7 @@ const TutorialPreview = () => {
                               />
                             ) : (
                               <img
-                                src={isMobile ? (steps[step].mobileImage || steps[step].image) : steps[step].image}
+                                src={isMobile ? steps[step].mobileImage : steps[step].image}
                                 alt={steps[step].title}
                                 className="w-full h-full object-cover rounded-lg shadow-md"
                               />
