@@ -6,6 +6,21 @@ const TutorialPreview = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [step, setStep] = useState(0);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // 画面サイズの検出
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
   
   // アプリの操作フローステップ
   const steps = [
@@ -13,31 +28,36 @@ const TutorialPreview = () => {
       title: "ノート一覧", 
       description: "作成したノートの一覧を確認できます",
       buttonText: "次へ：ノートを作成",
-      image: "/images/tutorial1.png"
+      image: "/images/tutorial1.png",
+      mobileImage: "/images/tutorial1-mobile.png"
     },
     { 
       title: "ノートの作成", 
       description: "新しいノートを作成します",
       buttonText: "次へ：文字を書く",
-      image: "/images/tutorial-step2.png"
+      image: "/images/tutorial-step2.png",
+      mobileImage: "/images/tutorial-step2-mobile.png"
     },
     { 
       title: "文字を書く", 
       description: "キャンバスに文字や図形を自由に書き込めます",
       buttonText: "次へ：書き終える",
-      image: "/images/tutorial-step3.png"
+      image: "/images/tutorial-step3.png",
+      mobileImage: "/images/tutorial-step3-mobile.png"
     },
     { 
       title: "ノートの完成", 
       description: "書いた内容がノートとして保存されます",
       buttonText: "次へ：音声に変換",
-      image: "/images/tutorial-step4.png"
+      image: "/images/tutorial-step4.png",
+      mobileImage: "/images/tutorial-step4-mobile.png"
     },
     { 
       title: "音声への変換", 
       description: "AIが文字を認識して自然な音声で読み上げます",
       buttonText: "チュートリアルを終了",
-      video: "/images/tutorial-step5.mp4"
+      video: "/images/tutorial-step5.mp4",
+      mobileVideo: "/images/tutorial-step5-mobile.mp4"
     }
   ];
 
@@ -219,7 +239,7 @@ const TutorialPreview = () => {
                         >
                           <div className="relative w-full h-full flex items-center justify-center">
                             <img
-                              src="/images/tutorial1.png"
+                              src={isMobile ? (steps[0].mobileImage || steps[0].image) : steps[0].image}
                               alt="ノート一覧"
                               className="w-full h-full object-cover rounded-lg shadow-md opacity-50"
                             />
@@ -242,7 +262,7 @@ const TutorialPreview = () => {
                             {steps[step].video ? (
                               <video
                                 ref={videoRef}
-                                src={steps[step].video}
+                                src={isMobile ? (steps[step].mobileVideo || steps[step].video) : steps[step].video}
                                 className="w-full h-full object-cover rounded-lg shadow-md"
                                 controls
                                 loop
@@ -252,7 +272,7 @@ const TutorialPreview = () => {
                               />
                             ) : (
                               <img
-                                src={steps[step].image}
+                                src={isMobile ? (steps[step].mobileImage || steps[step].image) : steps[step].image}
                                 alt={steps[step].title}
                                 className="w-full h-full object-cover rounded-lg shadow-md"
                               />
