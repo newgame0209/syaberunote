@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, BookOpen, Brain, HeadphonesIcon } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section className="pt-20 pb-20 md:pt-28 md:pb-24 lg:pt-40 lg:pb-32 px-4 md:px-6 lg:px-12 hero-gradient relative overflow-hidden">
+    <section className="pt-12 pb-12 md:pt-28 md:pb-24 lg:pt-40 lg:pb-32 px-4 md:px-6 lg:px-12 hero-gradient relative overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="animate-fade-in-up">
           <div className="inline-block bg-secondary px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium text-primary mb-4 md:mb-6">
