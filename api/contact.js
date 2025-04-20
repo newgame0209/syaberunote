@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 // メール送信用のトランスポーター設定
 const transporter = nodemailer.createTransport({
