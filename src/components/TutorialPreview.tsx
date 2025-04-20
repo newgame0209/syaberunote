@@ -5,7 +5,7 @@ const TutorialPreview = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [step, setStep] = useState(0);
-  const [showWelcome, setShowWelcome] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   
   // 画面サイズの検出
@@ -31,32 +31,32 @@ const TutorialPreview = () => {
   // アプリの操作フローステップ
   const steps = [
     { 
-      title: "はじめる", 
-      description: "基本機能をここで体験いただけます",
+      title: "ノート一覧", 
+      description: "作成したノートの一覧を確認できます",
       buttonText: "次へ：ノートを作成",
-      image: "images/tutorial1.png",
-      mobileImage: "images/tutorial1-mobile.png"
+      image: "/images/tutorial1.png",
+      mobileImage: "/images/tutorial1-mobile.png"
     },
     { 
-      title: "ノートを作成", 
+      title: "ノートの作成", 
       description: "新しいノートを作成します",
-      buttonText: "次へ：文字を書く",
-      image: "images/tutorial-step2.png",
-      mobileImage: "images/tutorial-step2-mobile.png"
+      buttonText: "次へ：ノートを完成",
+      image: "/images/tutorial-step2.png",
+      mobileImage: "/images/tutorial-step2-mobile.png"
     },
     { 
-      title: "文字を書く", 
-      description: "キャンバスに文字や図形を自由に書き込めます",
+      title: "ノートの完成", 
+      description: "書いた内容がノートとして保存されます",
       buttonText: "次へ：音声に変換",
-      image: "images/tutorial-step4.png",
-      mobileImage: "images/tutorial-step4-mobile.png"
+      image: "/images/tutorial-step4.png",
+      mobileImage: "/images/tutorial-step4-mobile.png"
     },
     { 
       title: "音声への変換", 
       description: "AIが文字を認識して自然な音声で読み上げます",
       buttonText: "チュートリアルを終了",
-      video: "images/tutorial-step5.mp4",
-      mobileVideo: "images/tutorial-step5-mobile.mp4"
+      video: "/images/tutorial-step5.mp4",
+      mobileVideo: "/images/tutorial-step5-mobile.mp4"
     }
   ];
 
@@ -91,16 +91,33 @@ const TutorialPreview = () => {
 
   // 動画の再生制御
   useEffect(() => {
-    if (step === 3 && videoRef.current) {
-      // 動画の音声を有効にして再生
-      videoRef.current.muted = false;
-      videoRef.current.volume = 1.0;
-      videoRef.current.play()
-        .catch(e => {
-          console.log('動画の自動再生に失敗しました:', e);
-          // 失敗時はユーザーに通知
-          alert('動画を再生するには、画面をクリックしてください');
+    // ステップが動画表示のステップ（新しいインデックスでは3）か確認
+    if (step === 3 && videoRef.current) { 
+      const videoElement = videoRef.current;
+      // 再生開始を試みる
+      const playPromise = videoElement.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // 自動再生成功
+          console.log('動画の自動再生開始');
+          // 必要であればここでミュート解除などを行うが、
+          // ブラウザポリシーによりユーザー操作が必要な場合がある
+          // videoElement.muted = false; // ← ユーザー操作なしでのミュート解除は失敗することが多い
+        }).catch(error => {
+          // 自動再生失敗。ユーザー操作が必要な可能性が高い
+          console.log('動画の自動再生に失敗:', error);
+          // ミュート状態なら再生できることが多いので試す
+          videoElement.muted = true;
+          videoElement.play().then(() => {
+            console.log('ミュート状態で動画再生開始');
+            // alert('動画の音声を聞くには、ミュートを解除してください');
+          }).catch(err => {
+             console.log('ミュート状態でも再生失敗:', err);
+             alert('動画を再生するには、画面をクリック/タップしてください');
+          });
         });
+      }
     }
   }, [step]);
 
@@ -166,18 +183,21 @@ const TutorialPreview = () => {
 
   // ステップに応じたコンテンツを表示
   const renderStepContent = () => {
-    // ステップ3（最後のステップ）は動画、その他は画像
-    if (step === 3) {
+    const currentStep = steps[step];
+    // ステップが動画表示のステップ（新しいインデックスでは3）か確認
+    if (step === 3) { 
       return (
         <div className="w-full h-full flex items-center justify-center">
           <video
             ref={videoRef}
-            src={isMobile ? steps[step].mobileVideo : steps[step].video}
+            key={isMobile ? currentStep.mobileVideo : currentStep.video} // キーを変えて再レンダリングを促す
+            src={isMobile ? currentStep.mobileVideo : currentStep.video}
             className="max-w-full max-h-full object-contain rounded shadow"
             loop
             playsInline
-            controls
-            autoPlay
+            controls // 音声コントロールを表示
+            // autoPlay // autoplayはユーザー操作起因でないと失敗しやすいので削除、useEffectで制御
+            // muted // 初期ミュートは解除、useEffectで制御
           />
         </div>
       );
@@ -185,18 +205,17 @@ const TutorialPreview = () => {
       return (
         <div className="w-full h-full flex items-center justify-center">
           <img
-            src={isMobile ? steps[step].mobileImage : steps[step].image}
-            alt={steps[step].title}
+            key={isMobile ? currentStep.mobileImage : currentStep.image} // キーを変えて再レンダリングを促す
+            src={isMobile ? currentStep.mobileImage : currentStep.image}
+            alt={currentStep.title}
             className="max-w-full max-h-full object-contain rounded shadow"
+            // onErrorハンドラを追加してデバッグ
+            onError={(e) => console.error(`画像の読み込みエラー: ${e.currentTarget.src}`)}
           />
         </div>
       );
     }
   };
-
-  useEffect(() => {
-    setShowWelcome(false);
-  }, []);
 
   return (
     <section id="tutorial-preview" className="py-12 md:py-24 px-4 md:px-12 bg-gradient-to-br from-primary/20 via-secondary/20 to-white">
