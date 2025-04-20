@@ -45,10 +45,10 @@ const Hero = () => {
             />
           </div>
           
-          <div className="absolute -bottom-3 -right-3 md:-bottom-6 md:-right-6 glass p-2 md:p-4 rounded-lg md:rounded-xl animate-floating shadow-sm">
-            <div className="flex items-center space-x-2">
-              <div className="h-2 w-2 md:h-3 md:w-3 bg-primary rounded-full"></div>
-              <p className="text-xs md:text-sm font-medium">AI音声で学習をサポート中...</p>
+          <div className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 md:-bottom-6 md:-right-6 glass p-1.5 sm:p-2 md:p-4 rounded-lg md:rounded-xl animate-floating shadow-sm">
+            <div className="flex items-center space-x-1 sm:space-x-2">
+              <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 md:h-3 md:w-3 bg-primary rounded-full"></div>
+              <p className="text-[9px] sm:text-xs md:text-sm font-medium whitespace-nowrap">AI音声で学習をサポート中...</p>
             </div>
           </div>
         </div>
