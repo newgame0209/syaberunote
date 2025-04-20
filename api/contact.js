@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 // メール送信用のトランスポーター設定
 const transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-module.exports = async function(req, res) {
+export default async function handler(req, res) {
   // CORSヘッダーの設定
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -64,4 +64,4 @@ ${message}
     console.error('メール送信エラー:', error);
     res.status(500).json({ success: false, message: 'メール送信に失敗しました' });
   }
-};
+}
