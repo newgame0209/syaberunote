@@ -5,7 +5,7 @@ const TutorialPreview = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [step, setStep] = useState(0);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
   // 画面サイズの検出
@@ -31,32 +31,32 @@ const TutorialPreview = () => {
   // アプリの操作フローステップ
   const steps = [
     { 
-      title: "ノート一覧", 
-      description: "作成したノートの一覧を確認できます",
+      title: "はじめる", 
+      description: "基本機能をここで体験いただけます",
       buttonText: "次へ：ノートを作成",
-      image: "/images/tutorial1.png",
-      mobileImage: "/images/tutorial1-mobile.png"
+      image: "images/tutorial1.png",
+      mobileImage: "images/tutorial1-mobile.png"
     },
     { 
-      title: "ノートの作成", 
+      title: "ノートを作成", 
       description: "新しいノートを作成します",
       buttonText: "次へ：文字を書く",
-      image: "/images/tutorial-step2.png",
-      mobileImage: "/images/tutorial-step2-mobile.png"
+      image: "images/tutorial-step2.png",
+      mobileImage: "images/tutorial-step2-mobile.png"
     },
     { 
       title: "文字を書く", 
       description: "キャンバスに文字や図形を自由に書き込めます",
       buttonText: "次へ：音声に変換",
-      image: "/images/tutorial-step4.png",
-      mobileImage: "/images/tutorial-step4-mobile.png"
+      image: "images/tutorial-step4.png",
+      mobileImage: "images/tutorial-step4-mobile.png"
     },
     { 
       title: "音声への変換", 
       description: "AIが文字を認識して自然な音声で読み上げます",
       buttonText: "チュートリアルを終了",
-      video: "/images/tutorial-step5.mp4",
-      mobileVideo: "/images/tutorial-step5-mobile.mp4"
+      video: "images/tutorial-step5.mp4",
+      mobileVideo: "images/tutorial-step5-mobile.mp4"
     }
   ];
 
@@ -193,6 +193,10 @@ const TutorialPreview = () => {
       );
     }
   };
+
+  useEffect(() => {
+    setShowWelcome(false);
+  }, []);
 
   return (
     <section id="tutorial-preview" className="py-12 md:py-24 px-4 md:px-12 bg-gradient-to-br from-primary/20 via-secondary/20 to-white">
