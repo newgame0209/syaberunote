@@ -35,7 +35,7 @@ const TutorialPreview = () => {
       description: "作成したノートの一覧を確認できます",
       buttonText: "次へ：ノートを作成",
       image: "/images/tutorial1.png",
-      mobileImage: "/images/tutorial1-mobile.png" 
+      mobileImage: "/images/tutorial1-mobile.png"
     },
     { 
       title: "ノートの作成", 
