@@ -112,11 +112,11 @@ const TutorialPreview = () => {
   // ウェルカムポップアップを表示
   const WelcomePopup = () => (
     <motion.div 
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg border border-slate-200 p-3 md:p-4 w-[90%] sm:w-[85%] md:w-[65%] max-w-none md:max-w-xs z-20"
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg border border-slate-200 p-3 md:p-4 w-[80%] sm:w-[70%] md:w-[60%] max-w-[250px] z-20"
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      style={{ maxHeight: '70%', overflow: 'auto' }}
+      style={{ maxHeight: '60%', overflow: 'auto' }}
     >
       <div className="text-center mb-2 md:mb-3">
         <div className="inline-block bg-primary/10 p-1.5 md:p-2 rounded-full mb-1.5 md:mb-2">

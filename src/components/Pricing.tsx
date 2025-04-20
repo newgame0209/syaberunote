@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
@@ -34,7 +33,7 @@ const Pricing = () => {
             </p>
             <Button 
               className="w-full md:w-auto bg-primary hover:bg-primary/90"
-              onClick={() => window.open('https://mynote-psi-three.vercel.app/', '_blank')}
+              onClick={() => {}}
             >
               β版に参加する
             </Button>

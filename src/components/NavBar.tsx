@@ -28,7 +28,7 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <BookOpen className="h-5 w-5 text-primary" />
-          <span className="font-bold text-xl">しゃべるノート</span>
+          <span className="font-bold text-sm sm:text-xl">しゃべるノート</span>
         </div>
         
         <nav className="hidden md:flex items-center space-x-1">
@@ -38,9 +38,9 @@ const NavBar = () => {
           <a href="#features-detail" className="nav-item">機能詳細</a>
         </nav>
         
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center">
           <Button 
-            className="rounded-full bg-primary hover:bg-primary/90 text-white"
+            className="rounded-full bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm py-1 px-2 sm:px-4 sm:py-2"
             onClick={() => document.getElementById('cta').scrollIntoView({ behavior: 'smooth' })}
           >
             お問い合わせ
