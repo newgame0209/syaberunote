@@ -32,13 +32,13 @@ module.exports = async (req, res) => {
     return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
 
-  const { name, email, organization, inquiry_type, message } = req.body;
-  
-  if (!name || !email || !message) {
-    return res.status(400).json({ success: false, message: '必須項目が入力されていません' });
-  }
-
   try {
+    const { name, email, organization, inquiry_type, message } = req.body;
+    
+    if (!name || !email || !message) {
+      return res.status(400).json({ success: false, message: '必須項目が入力されていません' });
+    }
+
     // メール本文の作成
     const mailOptions = {
       from: 'support@talknote.site',
