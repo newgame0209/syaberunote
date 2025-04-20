@@ -38,15 +38,14 @@ const FeedbackForm = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('https://talknote.site/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // FormSubmitサービスを使用してメール送信
+      const formElement = e.target as HTMLFormElement;
+      const formData = new FormData(formElement);
       
-      const data = await response.json();
+      const response = await fetch('https://formsubmit.co/support@talknote.site', {
+        method: 'POST',
+        body: formData,
+      });
       
       if (response.ok) {
         setSubmitStatus({
@@ -64,7 +63,7 @@ const FeedbackForm = () => {
       } else {
         setSubmitStatus({
           success: false,
-          message: data.message || 'エラーが発生しました。しばらく経ってからもう一度お試しください。'
+          message: 'エラーが発生しました。しばらく経ってからもう一度お試しください。'
         });
       }
     } catch (error) {
@@ -101,7 +100,13 @@ const FeedbackForm = () => {
             </div>
           )}
           
-          <form className="space-y-3 md:space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-3 md:space-y-4" onSubmit={handleSubmit} action="https://formsubmit.co/support@talknote.site" method="POST">
+            {/* FormSubmit用の設定フィールド */}
+            <input type="hidden" name="_subject" value="お問い合わせフォームからの送信" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value="https://talknote.site/?thankyou=true" />
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
                 <label htmlFor="name" className="block text-xs font-medium text-slate-700 mb-1">
@@ -110,6 +115,7 @@ const FeedbackForm = () => {
                 <Input
                   type="text"
                   id="name"
+                  name="name"
                   placeholder="山田 太郎"
                   className="h-9 text-sm"
                   value={formData.name}
@@ -124,6 +130,7 @@ const FeedbackForm = () => {
                 <Input
                   type="email"
                   id="email"
+                  name="email"
                   placeholder="your@email.com"
                   className="h-9 text-sm"
                   value={formData.email}
@@ -140,6 +147,7 @@ const FeedbackForm = () => {
               <Input
                 type="text"
                 id="organization"
+                name="organization"
                 placeholder="学校名・団体名・会社名など"
                 className="h-9 text-sm"
                 value={formData.organization}
@@ -153,6 +161,7 @@ const FeedbackForm = () => {
               </label>
               <select 
                 id="inquiry_type" 
+                name="inquiry_type"
                 className="w-full h-9 text-sm rounded-md border border-slate-300 px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={formData.inquiry_type}
                 onChange={handleChange}
@@ -172,6 +181,7 @@ const FeedbackForm = () => {
               </label>
               <Textarea
                 id="message"
+                name="message"
                 rows={4}
                 placeholder="ご質問やご要望、お困りの状況などを詳しくお聞かせください。学習障害やディスレクシアに関するお悩みもお気軽にご相談いただけます。"
                 className="resize-none text-sm"
