@@ -70,8 +70,8 @@ const UseCases = () => {
           </p>
         </div>
         
-        <div className="bg-slate-50 rounded-2xl p-6 md:p-8 shadow-sm">
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+        <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-nowrap sm:flex-wrap overflow-x-auto gap-2 mb-8 justify-start sm:justify-center -mx-2 px-2 scrollbar-hide">
             {useCases.map((useCase, index) => (
               <button
                 key={index}

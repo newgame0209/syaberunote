@@ -1,43 +1,43 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
-import { useInView } from 'react-intersection-observer';
 
 const DemoVideos = () => {
-  const [ref1, inView1] = useInView({
-    threshold: 0.5,
-  });
-  const [ref2, inView2] = useInView({
-    threshold: 0.5,
-  });
-  const videoRef1 = useRef<HTMLVideoElement>(null);
-  const videoRef2 = useRef<HTMLVideoElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   useEffect(() => {
-    if (inView1 && videoRef1.current) {
-      videoRef1.current.play().catch(() => {
-        if (videoRef1.current) {
-          videoRef1.current.muted = true;
-          videoRef1.current.play();
-        }
-      });
-    } else if (!inView1 && videoRef1.current) {
-      videoRef1.current.pause();
-    }
-  }, [inView1]);
+    if (!('IntersectionObserver' in window)) return;
 
-  useEffect(() => {
-    if (inView2 && videoRef2.current) {
-      videoRef2.current.play().catch(() => {
-        if (videoRef2.current) {
-          videoRef2.current.muted = true;
-          videoRef2.current.play();
-        }
-      });
-    } else if (!inView2 && videoRef2.current) {
-      videoRef2.current.pause();
-    }
-  }, [inView2]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const target = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            // 再生 & 音声ON (ミュート解除)
+            if (target.paused) {
+              target.muted = false;
+              target.play().catch(() => {});
+            }
+          } else {
+            // ビューポート外では停止してミュート
+            if (!target.paused) {
+              target.pause();
+              target.muted = true;
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    videoRefs.current.forEach((v) => {
+      if (v) observer.observe(v);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <section id="demo" className="py-12 md:py-20 px-4 md:px-12 bg-slate-50">
@@ -52,14 +52,13 @@ const DemoVideos = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-5 md:gap-8">
-          <div ref={ref1} className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 animate-fade-in-up">
+          <div className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 animate-fade-in-up">
             <div className="relative pb-[56.25%] overflow-hidden">
               <video 
-                ref={videoRef1}
+                ref={(el) => (videoRefs.current[0] = el)}
                 className="absolute inset-0 w-full h-full object-cover"
                 controls
-                playsInline
-                loop
+                muted
               >
                 <source src="https://jikkenpro.netlify.app/videos/speaking-note-demo1.mp4" type="video/mp4" />
                 お使いのブラウザはビデオタグをサポートしていません。
@@ -73,14 +72,13 @@ const DemoVideos = () => {
             </div>
           </div>
           
-          <div ref={ref2} className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
+          <div className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 animate-fade-in-up" style={{ animationDelay: "150ms" }}>
             <div className="relative pb-[56.25%] overflow-hidden">
               <video 
-                ref={videoRef2}
+                ref={(el) => (videoRefs.current[1] = el)}
                 className="absolute inset-0 w-full h-full object-cover"
                 controls
-                playsInline
-                loop
+                muted
               >
                 <source src="https://jikkenpro.netlify.app/videos/speaking-note-demo2.mp4" type="video/mp4" />
                 お使いのブラウザはビデオタグをサポートしていません。

@@ -4,7 +4,7 @@ import { BookOpen, Ear, Brain, Speech, LayoutGrid, Settings } from 'lucide-react
 
 const Features = () => {
   return (
-    <section id="features" className="py-24 px-6 md:px-12">
+    <section id="features" className="py-16 sm:py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -15,7 +15,7 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-8">
           <FeatureCard 
             title="書いた文字を音声に変換"
             description="ノートのキャンバスに書いた文字やメモに入力したテキストをAIが理解し自然な音声で読み上げ。文字を目で追うことが難しい方でも内容を耳から理解できます。"

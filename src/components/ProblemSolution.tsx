@@ -52,7 +52,7 @@ const ProblemSolution = () => {
   ];
 
   return (
-    <section id="problem-solution" className="py-24 px-6 md:px-12 bg-slate-50">
+    <section id="problem-solution" className="py-16 sm:py-24 px-6 md:px-12 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         <motion.div 
           className="text-center mb-16"
@@ -62,10 +62,11 @@ const ProblemSolution = () => {
           variants={staggerContainer}
         >
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-3xl md:text-4xl font-bold mb-4 leading-snug whitespace-pre-line text-center"
             variants={fadeInUp}
           >
-            お悩みを<span className="text-primary">しゃべるノート</span>で解決
+            {`お悩みを\n`}
+            <span className="text-primary">しゃべるノート</span>で解決
           </motion.h2>
           <motion.p 
             className="text-lg text-slate-600 max-w-2xl mx-auto"

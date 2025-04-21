@@ -99,7 +99,7 @@ const Hero = () => {
 
         {/* モバイル版では詳しく見るボタンとサービスの特長ボタンを後に表示 */}
         {isMobile && (
-          <div className="flex flex-col gap-3 mt-4">
+          <div className="flex flex-col gap-3 mt-6 relative z-10">
             <Button 
               className="btn-primary flex items-center group text-sm py-4 w-full justify-center"
               onClick={() => document.getElementById('features').scrollIntoView({ behavior: 'smooth' })}
@@ -107,18 +107,20 @@ const Hero = () => {
               詳しく見る
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button 
-              variant="outline" 
-              className="bg-white text-primary hover:bg-gray-50 border border-primary/20 shadow-sm text-sm py-4 w-full justify-center"
-              onClick={() => document.getElementById('benefits').scrollIntoView({ behavior: 'smooth' })}
-            >
-              サービスの特長
-            </Button>
+            <a href="#benefits" className="w-full">
+              <Button 
+                variant="outline" 
+                className="bg-white hover:bg-gray-100 border border-gray-200 shadow-sm text-sm py-4 w-full justify-center"
+                type="button"
+              >
+                サービスの特長
+              </Button>
+            </a>
           </div>
         )}
       </div>
       
-      <div className="absolute bottom-0 left-0 right-0 h-12 md:h-24 bg-gradient-to-t from-background to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-12 md:h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-0"></div>
     </section>
   );
 };
