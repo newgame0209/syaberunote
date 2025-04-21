@@ -107,13 +107,15 @@ const Hero = () => {
               詳しく見る
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button 
-              variant="outline" 
-              className="btn-secondary text-sm py-4 w-full justify-center"
-              onClick={() => document.getElementById('benefits').scrollIntoView({ behavior: 'smooth' })}
-            >
-              サービスの特長
-            </Button>
+            <a href="#benefits" className="w-full">
+              <Button 
+                variant="outline" 
+                className="bg-white hover:bg-gray-100 border border-gray-200 shadow-sm text-sm py-4 w-full justify-center"
+                type="button"
+              >
+                サービスの特長
+              </Button>
+            </a>
           </div>
         )}
       </div>
