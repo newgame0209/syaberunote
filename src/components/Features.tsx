@@ -15,7 +15,7 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           <FeatureCard 
             title="書いた文字を音声に変換"
             description="ノートのキャンバスに書いた文字やメモに入力したテキストをAIが理解し自然な音声で読み上げ。文字を目で追うことが難しい方でも内容を耳から理解できます。"

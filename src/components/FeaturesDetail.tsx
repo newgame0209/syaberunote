@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { 
   Bookmark, 
@@ -12,7 +13,8 @@ import {
   ImagePlus, 
   FileText, 
   MessageSquareText, 
-  FileDigit 
+  FileDigit,
+  ChevronRight
 } from 'lucide-react';
 
 const fadeInUp = {
@@ -99,25 +101,46 @@ const upcomingFeatures = [
   }
 ];
 
-const FeatureCard = ({ icon, title, description, delay = 0 }) => (
-  <motion.div
-    variants={fadeInUp}
-    className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100 p-6"
-    style={{ animationDelay: `${delay}ms` }}
-  >
-    <div className="flex items-start">
-      <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 text-primary">
-        {icon}
-      </div>
-      <div>
-        <h3 className="font-semibold text-lg mb-2">{title}</h3>
-        <p className="text-slate-600 text-sm">{description}</p>
-      </div>
-    </div>
-  </motion.div>
-);
-
 const FeaturesDetail = () => {
+  const [activeTab, setActiveTab] = useState('existing');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const FeatureCard = ({ icon, title, description, delay, showTabButton = false }) => (
+    <motion.div
+      className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm"
+      variants={fadeInUp}
+      custom={delay}
+    >
+      <div className="flex items-start">
+        <div className="h-12 w-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+          {icon}
+        </div>
+        <div>
+          <h3 className="font-semibold mb-2">{title}</h3>
+          <p className="text-sm text-slate-600">{description}</p>
+          {showTabButton && (
+            <Button
+              variant="ghost"
+              className="mt-4 text-primary hover:text-primary/90 p-0 h-auto font-medium text-sm flex items-center"
+              onClick={() => setActiveTab(activeTab === 'existing' ? 'upcoming' : 'existing')}
+            >
+              {activeTab === 'existing' ? '今後追加予定の機能を見る' : '既存の機能を見る'}
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <section id="features-detail" className="py-24 px-6 md:px-12 bg-slate-50">
       <div className="max-w-7xl mx-auto">
@@ -130,59 +153,87 @@ const FeaturesDetail = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="existing" className="w-full">
-          <TabsList className="mx-auto flex justify-center mb-8 p-1 bg-secondary">
-            <TabsTrigger value="existing" className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              既存の機能
-            </TabsTrigger>
-            <TabsTrigger value="upcoming" className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-              今後追加予定の機能
-            </TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="existing">
-            <motion.div 
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-            >
-              {existingFeatures.map((feature, index) => (
-                <FeatureCard
-                  key={index}
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  delay={index * 100}
-                />
-              ))}
-            </motion.div>
-          </TabsContent>
-          
-          <TabsContent value="upcoming">
-            <motion.div 
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-            >
-              {upcomingFeatures.map((feature, index) => (
-                <FeatureCard
-                  key={index}
-                  icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
-                  delay={index * 100}
-                />
-              ))}
-            </motion.div>
-            <div className="text-center mt-8 text-sm text-slate-500">
-              ※ 上記の機能は今後のアップデートで順次追加予定です
-            </div>
-          </TabsContent>
-        </Tabs>
+        {!isMobile && (
+          <Tabs defaultValue="existing" className="w-full">
+            <TabsList className="mx-auto flex justify-center mb-8 p-1 bg-secondary">
+              <TabsTrigger value="existing" className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                既存の機能
+              </TabsTrigger>
+              <TabsTrigger value="upcoming" className="rounded-md data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                今後追加予定の機能
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="existing">
+              <motion.div 
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                {existingFeatures.map((feature, index) => (
+                  <FeatureCard
+                    key={index}
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    delay={index * 100}
+                  />
+                ))}
+              </motion.div>
+            </TabsContent>
+            
+            <TabsContent value="upcoming">
+              <motion.div 
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                {upcomingFeatures.map((feature, index) => (
+                  <FeatureCard
+                    key={index}
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    delay={index * 100}
+                  />
+                ))}
+              </motion.div>
+              <div className="text-center mt-8 text-sm text-slate-500">
+                ※ 上記の機能は今後のアップデートで順次追加予定です
+              </div>
+            </TabsContent>
+          </Tabs>
+        )}
+
+        {isMobile && (
+          <motion.div 
+            className="grid gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            {(activeTab === 'existing' ? existingFeatures : upcomingFeatures).map((feature, index) => (
+              <FeatureCard
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                delay={index * 100}
+                showTabButton={index === 0}
+              />
+            ))}
+            {activeTab === 'upcoming' && (
+              <div className="text-center mt-4 text-sm text-slate-500">
+                ※ 上記の機能は今後のアップデートで順次追加予定です
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
     </section>
   );

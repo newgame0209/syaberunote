@@ -38,24 +38,24 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 px-6 md:px-12 bg-slate-50">
+    <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-slate-50">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-8 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">
             よくある<span className="text-primary">ご質問</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-sm sm:text-lg text-slate-600">
             「しゃべるノート」についてよくいただくご質問をまとめました。
             その他のご質問はお問い合わせフォームからお気軽にどうぞ。
           </p>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <motion.div 
               key={index}
               className={cn(
-                "bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100",
+                "bg-white rounded-lg sm:rounded-xl overflow-hidden shadow-sm border border-slate-100",
                 openIndex === index ? "shadow-md" : ""
               )}
               initial={{ opacity: 0, y: 20 }}
@@ -64,14 +64,14 @@ const FAQ = () => {
               transition={{ delay: index * 0.1 }}
             >
               <button
-                className="w-full text-left p-6 flex justify-between items-center"
+                className="w-full text-left p-4 sm:p-6 flex justify-between items-center"
                 onClick={() => toggleFaq(index)}
               >
-                <h3 className="text-lg font-semibold pr-8">{faq.question}</h3>
+                <h3 className="text-sm sm:text-lg font-semibold pr-8">{faq.question}</h3>
                 {openIndex === index ? (
-                  <ChevronUp className="h-5 w-5 text-primary flex-shrink-0" />
+                  <ChevronUp className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
                 ) : (
-                  <ChevronDown className="h-5 w-5 text-slate-400 flex-shrink-0" />
+                  <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-slate-400 flex-shrink-0" />
                 )}
               </button>
               
@@ -81,7 +81,7 @@ const FAQ = () => {
                   openIndex === index ? "max-h-96" : "max-h-0"
                 )}
               >
-                <p className="p-6 pt-0 text-slate-600">{faq.answer}</p>
+                <p className="px-4 pb-4 sm:px-6 sm:pb-6 text-sm sm:text-base text-slate-600">{faq.answer}</p>
               </div>
             </motion.div>
           ))}
