@@ -114,13 +114,6 @@ const Hero = () => {
             >
               サービスの特長
             </Button>
-            <Button 
-              variant="outline" 
-              className="btn-secondary text-sm py-4 w-full justify-center bg-white/80 hover:bg-white"
-              onClick={() => document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' })}
-            >
-              お問い合わせ
-            </Button>
           </div>
         )}
       </div>

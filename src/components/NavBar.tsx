@@ -40,8 +40,8 @@ const NavBar = () => {
         
         <div className="flex items-center">
           <Button 
-            className="rounded-full bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm py-1 px-2 sm:px-4 sm:py-2"
-            onClick={() => document.getElementById('cta').scrollIntoView({ behavior: 'smooth' })}
+            className="rounded-full bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm py-1 px-3 h-auto"
+            onClick={() => document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' })}
           >
             お問い合わせ
           </Button>
