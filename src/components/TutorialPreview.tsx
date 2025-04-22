@@ -48,7 +48,7 @@ const TutorialPreview = () => {
       title: "ノートに文字を書く",
       description: "ノートアプリとして使用できます",
       buttonText: "次へ：音声への変換",
-      image: "/images/ttutorial-step4.png",
+      image: "/images/tutorial-step4.png",
       mobileImage: "/images/tutorial-step3-mobile.png",
     },
     {
@@ -196,8 +196,8 @@ const TutorialPreview = () => {
             loop
             playsInline
             controls // 音声コントロールを表示
-            // autoPlay // autoplayはユーザー操作起因でないと失敗しやすいので削除、useEffectで制御
-            // muted // 初期ミュートは解除、useEffectで制御
+            autoPlay // 自動再生を有効化
+            muted // ブラウザのポリシーで自動再生を許可するためミュートに設定
           />
         </div>
       );
