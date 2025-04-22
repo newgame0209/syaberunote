@@ -98,8 +98,8 @@ const TutorialPreview = () => {
     if (step === 3 && videoRef.current) {
       const videoElement = videoRef.current;
 
-      // デバイスに応じてミュート設定を変更
-      videoElement.muted = isMobile; // モバイルはミュート、PC はアンミュート
+      // まずはモバイルでも音声ONで再生を試みる（ブラウザポリシーで拒否されれば後続でミュート再試行）
+      videoElement.muted = false; // デフォルトはミュートOFF
       videoElement.volume = 1; // PC では音量最大
 
       const tryPlay = () => {
@@ -203,7 +203,7 @@ const TutorialPreview = () => {
             playsInline
             controls
             autoPlay
-            muted={isMobile}
+            /* モバイルでも音声付き再生を試みるため muted 属性を外す */
           />
         </div>
       );
