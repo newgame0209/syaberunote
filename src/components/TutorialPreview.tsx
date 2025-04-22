@@ -60,7 +60,7 @@ const TutorialPreview = () => {
       description: "AIが文字を認識して自然な音声で読み上げます",
       buttonText: "チュートリアルを終了",
       video: "/images/tutorial-step5.mp4",
-      mobileVideo: "/images/tutorial-step5-mobile.mp4",
+      mobileVideo: "/images/tutorial-step5.mp4",
     },
   ];
 
