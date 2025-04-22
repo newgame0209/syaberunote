@@ -30,34 +30,34 @@ const TutorialPreview = () => {
   
   // アプリの操作フローステップ
   const steps = [
-    { 
-      title: "ノート一覧", 
-      description: "作成したノートの一覧を確認できます",
+    {
+      title: "しゃべるノートをはじめる",
+      description: "アプリを起動してスタートしましょう",
       buttonText: "次へ：ノートを作成",
       image: "/images/tutorial1.png",
-      mobileImage: "/images/tutorial1-mobile.png"
+      mobileImage: "/images/tutorial1-mobile.png",
     },
-    { 
-      title: "ノートの作成", 
+    {
+      title: "ノートを作成",
       description: "新しいノートを作成します",
-      buttonText: "次へ：ノートを完成",
+      buttonText: "次へ：ノートに文字を書く",
       image: "/images/tutorial-step2.png",
-      mobileImage: "/images/tutorial-step2-mobile.png"
+      mobileImage: "/images/tutorial-step2-mobile.png",
     },
-    { 
-      title: "ノートの完成", 
-      description: "書いた内容がノートとして保存されます",
-      buttonText: "次へ：音声に変換",
-      image: "/images/tutorial-step4.png",
-      mobileImage: "/images/tutorial-step4-mobile.png"
+    {
+      title: "ノートに文字を書く",
+      description: "ノートアプリとして使用できます",
+      buttonText: "次へ：音声への変換",
+      image: "/images/tutorial-step3.png",
+      mobileImage: "/images/tutorial-step3-mobile.png",
     },
-    { 
-      title: "音声への変換", 
+    {
+      title: "音声への変換",
       description: "AIが文字を認識して自然な音声で読み上げます",
       buttonText: "チュートリアルを終了",
-      video: "/images/tutorial-step5.mp4",
-      mobileVideo: "/images/tutorial-step5-mobile.mp4"
-    }
+      video: "/videos/tutorial-step5.mp4",
+      mobileVideo: "/videos/tutorial-step5-mobile.mp4",
+    },
   ];
 
   // SVGアニメーション
@@ -152,7 +152,7 @@ const TutorialPreview = () => {
           className="w-full bg-primary text-white font-medium py-1.5 px-2 rounded-lg flex items-center justify-center text-xs"
           onClick={() => setShowWelcome(false)}
         >
-          はじめる
+          しゃべるノートをはじめる
         </button>
       ) : (
         // デスクトップ版通常表示
@@ -174,7 +174,7 @@ const TutorialPreview = () => {
             className="w-full bg-primary text-white font-medium py-1 px-2 rounded-lg flex items-center justify-center text-[10px] md:text-xs"
             onClick={() => setShowWelcome(false)}
           >
-            はじめる
+            しゃべるノートをはじめる
           </button>
         </>
       )}
@@ -242,21 +242,7 @@ const TutorialPreview = () => {
         </div>
         
         <div className="relative">
-          {/* 背景のSVGアニメーション */}
-          <svg 
-            ref={svgRef}
-            className="absolute inset-0 w-full h-full z-0 hidden md:block"
-            viewBox="0 0 2854 1239" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path 
-              d="M47 338.746c31.833 63.334 138 181.1 308 145.5 212.5-44.5 375.5-276 512-357.5s246-105 326-45.5 63.5 164-17 310.5-202 344.5-241.5 448-27 206.154 80.5 239.504c93.5 29 206 0 343.5-185.004 138.72-186.646 256.5-218 224.5-50-21.5 110.333-64.3 334.204-63.5 347.004 1 16 234-386.004 574-524.004 313.17-127.11 622.5 7 712.5 242" 
-              stroke="#3164FF" 
-              strokeWidth="4" 
-              strokeLinecap="round"
-            />
-          </svg>
+          {/* 以前のSVG背景を削除し、シンプルな色背景のみとします */}
           
           {/* アプリのスクリーンショットとアニメーション */}
           <div className="relative z-10 mx-auto max-w-4xl">
