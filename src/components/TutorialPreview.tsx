@@ -48,7 +48,7 @@ const TutorialPreview = () => {
       title: "ノートに文字を書く",
       description: "ノートアプリとして使用できます",
       buttonText: "次へ：音声への変換",
-      image: "/images/tutorial-step3.png",
+      image: "/images/ttutorial-step4.png",
       mobileImage: "/images/tutorial-step3-mobile.png",
     },
     {
