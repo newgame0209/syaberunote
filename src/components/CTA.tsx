@@ -28,11 +28,11 @@ const MotionButton = motion(Button);
 
 const CTA = () => {
   return (
-    <section id="cta" className="py-24 px-6 md:px-12">
+    <section id="cta" className="py-16 sm:py-24 px-4 sm:px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="bg-gradient-to-r from-primary/90 to-accent/90 rounded-3xl overflow-hidden relative">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiNmZmZmZmYxMCIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')]"></div>
-          <div className="relative z-10 py-16 px-8 md:py-20 md:px-16 text-white">
+          <div className="relative z-10 py-12 px-6 sm:py-16 sm:px-8 md:py-20 md:px-16 text-white">
             <motion.div 
               className="max-w-3xl mx-auto text-center"
               initial="hidden"
@@ -41,21 +41,21 @@ const CTA = () => {
               variants={staggerContainer}
             >
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-6 leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-tight"
                 variants={fadeInUp}
               >
                 「読みづらい」「書きづらい」から<br />
                 「わかった！」「できた！」へ
               </motion.h2>
               <motion.p 
-                className="text-xl mb-8 opacity-90"
+                className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-90"
                 variants={fadeInUp}
               >
                 ディスレクシアや学習障害があっても、あなたの可能性は無限大。「しゃべるノート」で学ぶ楽しさを再発見しませんか？
               </motion.p>
               
               <motion.div 
-                className="flex flex-col md:flex-row justify-center gap-4 mb-10"
+                className="flex flex-col md:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-10"
                 variants={fadeInUp}
               >
                 {[
@@ -76,7 +76,7 @@ const CTA = () => {
               </motion.div>
               
               <motion.div 
-                className="flex flex-col sm:flex-row justify-center gap-4"
+                className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
                 variants={fadeInUp}
               >
                 <Button 

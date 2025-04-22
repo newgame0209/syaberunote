@@ -59,6 +59,7 @@ const DemoVideos = () => {
                 className="absolute inset-0 w-full h-full object-cover"
                 controls
                 muted
+                loop
               >
                 <source src="https://jikkenpro.netlify.app/videos/speaking-note-demo1.mp4" type="video/mp4" />
                 お使いのブラウザはビデオタグをサポートしていません。
@@ -79,6 +80,7 @@ const DemoVideos = () => {
                 className="absolute inset-0 w-full h-full object-cover"
                 controls
                 muted
+                loop
               >
                 <source src="https://jikkenpro.netlify.app/videos/speaking-note-demo2.mp4" type="video/mp4" />
                 お使いのブラウザはビデオタグをサポートしていません。

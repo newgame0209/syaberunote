@@ -76,7 +76,7 @@ const UseCases = () => {
               <button
                 key={index}
                 className={cn(
-                  "flex items-center px-4 py-2 rounded-full text-sm md:text-base transition-colors",
+                  "flex items-center px-3 py-1.5 rounded-full text-xs sm:text-sm md:text-base transition-colors",
                   activeTab === index 
                     ? "bg-primary text-white" 
                     : "bg-white text-slate-700 hover:bg-slate-100"

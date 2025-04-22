@@ -67,7 +67,7 @@ const Hero = () => {
               </Button>
               <Button 
                 variant="outline" 
-                className="btn-secondary text-sm sm:text-base py-4 sm:py-5 w-full sm:w-auto justify-center mt-2 sm:mt-0"
+                className="btn-secondary text-slate-800 hover:text-slate-900 text-sm sm:text-base py-4 sm:py-5 w-full sm:w-auto justify-center mt-2 sm:mt-0"
                 onClick={() => document.getElementById('benefits').scrollIntoView({ behavior: 'smooth' })}
               >
                 サービスの特長
@@ -110,7 +110,7 @@ const Hero = () => {
             <a href="#benefits" className="w-full">
               <Button 
                 variant="outline" 
-                className="bg-white hover:bg-gray-100 border border-gray-200 shadow-sm text-sm py-4 w-full justify-center"
+                className="bg-white hover:bg-gray-100 border border-gray-200 shadow-sm text-slate-800 hover:text-slate-900 text-sm py-4 w-full justify-center"
                 type="button"
               >
                 サービスの特長
