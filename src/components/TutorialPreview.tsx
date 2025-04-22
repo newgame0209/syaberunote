@@ -11,8 +11,12 @@ const TutorialPreview = () => {
   // 画面サイズの検出
   useEffect(() => {
     const checkMobile = () => {
-      const isMobileView = window.innerWidth < 768;
-      console.log('画面幅', window.innerWidth, 'isMobile:', isMobileView);
+      // ユーザーエージェントと画面幅の両方で判定し、モバイル判定の精度を上げる
+      const ua = navigator.userAgent;
+      const mobileByUa = /iPhone|iPad|iPod|Android/i.test(ua);
+      const mobileByWidth = window.innerWidth < 768;
+      const isMobileView = mobileByUa || mobileByWidth;
+      console.log('画面幅', window.innerWidth, 'UAによるモバイル判定', mobileByUa, 'isMobile:', isMobileView);
       setIsMobile(isMobileView);
     };
     
@@ -91,35 +95,37 @@ const TutorialPreview = () => {
 
   // 動画の再生制御
   useEffect(() => {
-    // ステップが動画表示のステップ（新しいインデックスでは3）か確認
-    if (step === 3 && videoRef.current) { 
+    if (step === 3 && videoRef.current) {
       const videoElement = videoRef.current;
-      // 再生開始を試みる
-      const playPromise = videoElement.play();
 
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          // 自動再生成功
-          console.log('動画の自動再生開始');
-          // 必要であればここでミュート解除などを行うが、
-          // ブラウザポリシーによりユーザー操作が必要な場合がある
-          // videoElement.muted = false; // ← ユーザー操作なしでのミュート解除は失敗することが多い
-        }).catch(error => {
-          // 自動再生失敗。ユーザー操作が必要な可能性が高い
-          console.log('動画の自動再生に失敗:', error);
-          // ミュート状態なら再生できることが多いので試す
-          videoElement.muted = true;
-          videoElement.play().then(() => {
-            console.log('ミュート状態で動画再生開始');
-            // alert('動画の音声を聞くには、ミュートを解除してください');
-          }).catch(err => {
-             console.log('ミュート状態でも再生失敗:', err);
-             alert('動画を再生するには、画面をクリック/タップしてください');
-          });
-        });
-      }
+      // デバイスに応じてミュート設定を変更
+      videoElement.muted = isMobile; // モバイルはミュート、PC はアンミュート
+      videoElement.volume = 1; // PC では音量最大
+
+      const tryPlay = () => {
+        const playPromise = videoElement.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => console.log('動画の自動再生成功'))
+            .catch(err => {
+              console.log('自動再生に失敗:', err);
+              // 自動再生が失敗した場合、ミュートにして再試行
+              if (!videoElement.muted) {
+                videoElement.muted = true;
+                videoElement.play().catch(err2 => {
+                  console.log('ミュートでも再生失敗:', err2);
+                  alert('動画を再生するには、画面をタップ/クリックしてください');
+                });
+              }
+            });
+        }
+      };
+
+      // iOS Safari では load() してから play() しないと表示されないことがある
+      videoElement.load();
+      tryPlay();
     }
-  }, [step]);
+  }, [step, isMobile]);
 
   // 次のステップに進む
   const handleNextStep = () => {
@@ -192,12 +198,12 @@ const TutorialPreview = () => {
             ref={videoRef}
             key={isMobile ? currentStep.mobileVideo : currentStep.video} // キーを変えて再レンダリングを促す
             src={isMobile ? currentStep.mobileVideo : currentStep.video}
-            className="max-w-full max-h-full object-contain rounded shadow"
+            className="w-full h-full object-contain rounded shadow"
             loop
             playsInline
-            controls // 音声コントロールを表示
-            autoPlay // 自動再生を有効化
-            muted // ブラウザのポリシーで自動再生を許可するためミュートに設定
+            controls
+            autoPlay
+            muted={isMobile}
           />
         </div>
       );
